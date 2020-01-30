@@ -1,0 +1,11 @@
+*/__pycache__/*
+
+.vscode/*
+.vscode/launch.json
+.vscode/settings.json
+.vscode/.ropeproject/config.py
+.vscode/.ropeproject/objectdb
+
+/recommendation/utils.py
+./test.py
+/recommendation/user/remedies
