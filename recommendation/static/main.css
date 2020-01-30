@@ -1,0 +1,141 @@
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+
+.content-section {
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    
+  }
+
+.container-flu{
+    background-image: url('./image/depression.jpeg');
+    background-size: cover;
+    background-blend-mode: multiply;
+    background-position: center center;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.card-container{
+    width: 350px;
+    height: 550px;
+    background: #ffffff;
+    border-radius: 6px;
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    box-shadow: 0px 1px 10px 1px #000;
+    overflow: hidden;
+    /* display: inline-block; */
+   
+}
+
+
+.upper-container{
+    height: 200px;
+    background: rgb(45, 12, 233);
+}
+
+.image-container{
+    background:white;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    padding:5px;
+    transform : translate(150px, 130px)
+}
+
+.image-container img{
+    background:white;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.lower-container{
+    height: 300px;
+    background:rgb(246, 245, 244);
+    font-family: arial; 
+    box-sizing: border-box;
+    padding:20px;
+    padding-top: 60px;
+    text-align: center;
+}
+
+.lower-container h3, h4{
+    font-weight: 100;
+}
+
+.card-footer{
+    height: 50px;
+}
+
+
+/* Rating Star Widgets Style */
+.rating-stars ul {
+    list-style-type:none;
+    padding:0;
+    
+    -moz-user-select:none;
+    -webkit-user-select:none;
+  }
+.rating-stars ul > li.star {
+    display:inline-block;
+    
+}
+  
+  /* Idle State of the stars */
+.rating-stars ul > li.star > i.fa {
+    font-size:2.5em; /* Change the size of the stars */
+    color:#ccc; /* Color on idle state */
+  }
+
+  #stars .hover{
+    color:#FFCC36;
+  }
+  
+  #stars .selected{
+    color:#FF912C;
+  }
+
+
+ol{
+    list-style: none;
+}
+
+ol,ul>li{
+    text-align:initial
+}
+
+ul{
+    list-style:lower-roman
+}
+
+li>span{
+    font-size: 20px;
+    font-weight:bold;
+    font-family:fantasy"
+}
+
+
+
+
+
+  <ol style = "list-style: none">
+  <li style = "text-align: initial;">
+      <span style = "font-size: 20px; font-weight:bold; font-family:fantasy" > Life style changes </span> 
+      <ul style = "list-style: lower-roman; ">

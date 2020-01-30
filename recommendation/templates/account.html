@@ -1,0 +1,27 @@
+{% extends 'main_layout.html' %}
+
+{% block content %}
+    <div class="card-container">
+        <div class="upper-container">
+            <div class="image-container">
+                <img src="{{user.image_file}}" alt="" >
+            </div>
+        </div>
+
+        <div class="lower-container">
+            <div>
+                <h3 style="font-weight: bold;">Username</h3>
+                <h4>{{user.username}}</h4>
+            </div>
+            <div>
+                <h3 style="font-weight: bold;">Sex</h3>
+                <h4>{{user.sex}}</h4>
+            </div>
+            <div>
+                <h3 style="font-weight: bold;">Date of Birth</h3>
+                <h4 style = "font-weight: 100;">{{user.date_of_birth.strftime('%Y-%m-%d')}}</h4>
+            </div>
+
+        </div>
+    </div>
+{% endblock content %} 

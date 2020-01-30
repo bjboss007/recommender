@@ -1,0 +1,119 @@
+
+<ol>
+    <li> Three minute Breathing </li>
+    <li>Mindfulness stretching</li>
+    <li>Mindful showering</li>
+    <li>Mindful Brushing your teeth</li>
+    <li>Mindful eating</li>
+    <li>Mindful making your bed.</li>
+</ol>
+<div class="Mild Depression"> 
+    <ol>
+        <li>
+            Life style changes:
+            <ul>
+                <li>Get enough sleep (8 hoours daily)</li>
+                <li> Eat a healthy diet </li>
+                <li> Take regualar breaks from work </li>
+                <li> Find a relaxing hobby i.e gardening or woodworking. </li>
+                <li> Stay away from alcohol or caffeine</li>
+                <li> Surround yourself with supportive and posiive friends & Family.</li>
+            </ul>
+        </li>
+    </ol>
+
+    <ol>
+        <li>
+            Regular Exercise <a href="#"> click here to see exercise</a>
+            <ul>
+                <li>Do breathing exercise; Breathe in and out (5 mins)</li>
+                <li> Have a short stoll </li>
+                <li> Practise a gentle yoga exercise <a href="#"> click here to see exercise</a> </li>
+            </ul>
+        </li>
+    </ol>
+</div>
+
+<div class = "Moderate Depression">
+    <ul>
+        <li> Replace negative beliefs with positive, healthy ones.</li>
+        <li> Improve your communication skills</li>
+        <li> Increase your self-esteem</li>
+        <li> Regain a sense of satisfaction & control in your life</li>
+        <li> Eat right</li>
+        <li> Avoid alcohol </li>
+    </ul>
+
+    <ul>
+        <li>
+            Get plenty of exercise <a href="#"> (click here to see exercise)</a> 
+        </li>
+    </ul>
+</div>
+
+<div class="severe-depression">
+    <ul>
+        <li> Replace negative beliefs with positive, healthy ones.</li>
+        <li> Improve your communication skills</li>
+        <li> Increase your self-esteem</li>
+        <li> Regain a sense of satisfaction & control in your life</li>
+        <li> Eat right</li>
+        <li> Avoid alcohol </li>
+    </ul>
+
+    <ul>
+        <li>
+            Get plenty of exercise <a href="#"> (click here to see exercise)</a> 
+        </li>
+        <li>
+            You can talk to your Doctor or visit the nearest Health care for further help.
+        </li>
+    </ul>
+</div>
+
+
+
+<div class="row" style = "margin-top: 100px;">
+    {% for remedy in remedies %}
+      <div class = "col-md-4">
+        <div class="card" style="width: 350px ; background: #ffffff;
+        border-radius: 6px;  box-shadow: 0px 1px 10px 1px #000;">
+            <div class="upper-container">
+      
+            </div>
+
+            <div class="card-body" style = "padding: 50px;  height: 300px;
+            background:rgb(246, 245, 244);
+            font-family: arial; 
+            box-sizing: border-box;
+            padding-top: 60px;">
+              {{remedy.name | safe }}
+            </div>
+            <div class = "card-footer">
+                <div class='rating-stars text-center'>
+                    <ul id='stars'>
+                      <li class='star' title='Poor' data-value='1'>
+                        <i class='fa fa-star fa-fw'></i>
+                      </li>
+                      <li class='star' title='Fair' data-value='2'>
+                        <i class='fa fa-star fa-fw'></i>
+                      </li>
+                      <li class='star' title='Good' data-value='3'>
+                        <i class='fa fa-star fa-fw'></i>
+                      </li>
+                      <li class='star' title='Excellent' data-value='4'>
+                        <i class='fa fa-star fa-fw'></i>
+                      </li>
+                      <li class='star' title='WOW!!!' data-value='5'>
+                        <i class='fa fa-star fa-fw'></i>
+                      </li>
+                    </ul>
+
+                    <input type="hidden" id = "rating_value" >
+                </div>
+            </div>
+          </div>
+      </div>
+      {% endfor %}
+    </div>
+    </div>
