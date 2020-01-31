@@ -16,7 +16,7 @@
   }
 
 .container-flu{
-    background-image: url('./image/depression.jpeg');
+    background-image: url('./images/depression.jpeg');
     background-size: cover;
     background-blend-mode: multiply;
     background-position: center center;
@@ -28,21 +28,42 @@
     justify-content: center;
 }
 
-
-.card-container{
-    width: 350px;
-    height: 550px;
+.recomm-card{
     background: #ffffff;
     border-radius: 6px;
-    /* position: absolute;
+    height: 500px;
+    box-shadow: 0px 1px 10px 1px #000;
+}
+.card-container{
+    width: 350px;
+    height: 500px;
+    background: #ffffff;
+    border-radius: 6px;
+    position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); */
+    transform: translate(-50%, -50%);
     box-shadow: 0px 1px 10px 1px #000;
     overflow: hidden;
-    /* display: inline-block; */
+    display: inline-block;
    
 }
+
+.recomm-body{
+    padding: 50px;  
+    background:rgb(246, 245, 244);
+    font-family: arial; 
+    box-sizing: border-box;
+    padding-top: 60px;
+}
+
+@media(max-width: 766px){
+    .parent > :first-child{
+        margin-bottom: 20px;
+
+    }
+}
+
 
 
 .upper-container{
@@ -131,11 +152,3 @@ li>span{
     font-family:fantasy"
 }
 
-
-
-
-
-  <ol style = "list-style: none">
-  <li style = "text-align: initial;">
-      <span style = "font-size: 20px; font-weight:bold; font-family:fantasy" > Life style changes </span> 
-      <ul style = "list-style: lower-roman; ">

@@ -11,19 +11,13 @@ def parseData(score : int):
     
 
 data = {"Hangout" : [4,3,4,5,1,2,3,5], "Relax" : [4,3,4,3,4,4,3,1] ,"Exercise" : [4,3,4,5,3,4,3,5]}
-# maxi = {}
-# for i in data:
-#     maxi[i] = sum(data[i])
-# print(maxi)
 
-# maximum = max(maxi.values())
-# print("This is the maximum value in the dictionary")
-# print(maximum)
-
-
-def turner(dictionary:dict):
+def get_rating(dictionary:dict):
     for i in dictionary:
-        dictionary[i] = sum(dictionary[i])
+        length = len(dictionary[i])
+        total_score = sum(dictionary[i])
+        rating_score = total_score/length
+        dictionary[i] = rating_score
     maximum = max(dictionary.values())
     return dictionary, maximum
 
@@ -31,10 +25,8 @@ def getKey(dictionary, val):
     for key, value in dictionary.items():
         if val == value:
             return key
-        # else:
-        #     return "key not found"
 
-maxi, maximum = turner(data)
+maxi, maximum = get_rating(data)
 key = getKey(maxi,maximum)
 print("This is the lost key : ", key)
 

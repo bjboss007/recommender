@@ -4,7 +4,7 @@ from flask_login import  current_user, login_user, logout_user, login_required
 from recommendation.models import User, Question, Remedy, Category
 from recommendation.user.forms import LoginForm, RegistrationForm
 from recommendation import db, bcrypt
-from recommendation.utils import parseData, turner, getKey
+from recommendation.utils import parseData, get_rating, getKey
 
 
 
@@ -89,32 +89,34 @@ def recommendation(category):
     remedies_ = None 
     category = Category.query.filter_by(name = category).first()
     remedies = category.remedies
-    highest_rated = {}
+    rated_remedies = {}
     for remedy in remedies:
-        highest_rated[remedy.title] = [x.rating for x in remedy.remedy_ratings]
+        rated_remedies[remedy.title] = [x.rating for x in remedy.remedy_ratings]
     
-    length = max([len(j) for j in list(highest_rated.values())])
+    length = max([len(j) for j in list(rated_remedies.values())])
     if length < 5:
         remedies_ = remedies
     else:
-        maxi, maximum = turner(highest_rated)
+        maxi, maximum = get_rating(rated_remedies)
         key = getKey(maxi, maximum)
         remedy = Remedy.query.filter_by(title = key).first()
         remedies_ = remedy
 
     return render_template('recommendation.html', title = "Recommendation page" , remedies = remedies_)
 
-
+@users.route("/users/rating", methods = ["POST"])
 def rating():
     if request.method == "POST":
-        data = request.form.lists()
-        for remedy_id, rating in data:
-            remendy = Remedy.query.get(remedy_id).first()
-            rating = Rating(rating = rating)
-            remendy.remendy_rating.append(rating)
-        db.session.commit()
-        return redirect(url_for('users.account'))
-        
+        data = list(request.form.items())
+        print("This is the data: ")
+        print(data)
+        # for remedy_id, rating in data:
+        #     remendy = Remedy.query.get(remedy_id).first()
+        #     rating = Rating(rating = rating)
+        #     remendy.remendy_rating.append(rating)
+        # db.session.commit()
+        # return redirect(url_for('users.account'))
+    return redirect(url_for('users.account'))
         
     
     

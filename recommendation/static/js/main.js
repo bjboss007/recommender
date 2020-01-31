@@ -25,42 +25,49 @@ $(document).ready(function(){
     $('#stars li').on('click', function(){
         var onStar = parseInt($(this).data('value'), 10); // The star currently selected
         var stars = $(this).parent().children('li.star');
-        
         for (i = 0; i < stars.length; i++) {
             $(stars[i]).removeClass('selected');
         }
-        
         for (i = 0; i < onStar; i++) {
             $(stars[i]).addClass('selected');
         }
         // JUST RESPONSE (Not needed)
         var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
-        
+        var rating_div = document.getElementsByClassName('rating_value')
+     
         $('#rating_value').val(ratingValue)
 
         console.log("THis is the rating of the recommendation : ", ratingValue)
       
     });
     
-    
-    $('#questionsForm').validate( {
-        rules: {
-            input : {
-                required: true,
-                minlength: 15,
-            }  
-         },
-         messages:{
-             input : {
-                required: "Please answer all the questions",
-             }
-         }
-     });
-    
+
+    // var elements = document.getElementById("my-form").elements;
+    var elements = document.querySelectorAll("#my-form input[type=hidden]")
+    // console.log(elements)
+    // for (var i = 0, element; element = elements[i++];) {
+  
+    //     // console.log(element.id)
+    //     $('#stars li').on('click', function(){
+
+    //       var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+    //       var stars = $(this).parent().children('li.star');
+    //       for (i = 0; i < stars.length; i++) {
+    //           $(stars[i]).removeClass('selected');
+    //       }
+    //       for (i = 0; i < onStar; i++) {
+    //           $(stars[i]).addClass('selected');
+    //       }
+    //       // JUST RESPONSE (Not needed)
+    //       var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+       
+    //       $(`${element.id}`).val(ratingValue)
+  
+    //       console.log(element.id)
+    //       console.log("THis is the rating of the recommendation : ", ratingValue)
+        
+    //   });
+    // }
+
   });
   
-  
-  function responseMessage(msg) {
-    $('.success-box').fadeIn(200);  
-    $('.success-box div.text-message').html("<span>" + msg + "</span>");
-  }

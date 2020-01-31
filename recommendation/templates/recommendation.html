@@ -3,13 +3,12 @@
 
     {% if remedies is iterable %}
         <div class="content-section" style = "margin-top: 100px;">
-            <div class="row">
+            <form action="{{ url_for('users.rating') }}" method="post" id="my-form">
+            <div class="row parent">
                 {% for remedy  in remedies %}
                     <div class="col-md-6 col-xs-6">
-                        <div class="card">
-                        <div class="upper-container">
-                        </div>
-                        <div class="card-body">
+                        <div _classCallCheck class="card recomm-card">
+                        <div class="card-body recomm-body">
                             {{remedy.name | safe }}
                              
                             {% if remedy.image_file %}
@@ -35,20 +34,26 @@
                                         <i class='fa fa-star fa-fw'></i>
                                     </li>
                                 </ul>
-                                <input type="hidden" id = "rating_value" >
+                                <input type="hidden" name = {{remedy.id}} id = "rating_value_{{loop.index}}" >
                             </div>
                         </div>
-                    </div>
+                    </div class = "rating_value">
+                     
                     </div>
                 {% endfor %}
             </div>
+            <hr>
+            <div class = "row">
+                <input type="submit" value="Submit" class = "btn btn-primary mr-auto" >
+
+            </div>
+        </form>
         </div>
     {% else %}
         <div class="content-section" style = "margin-top: 100px;">
             <div class="row justify-content-center">
-                <div class="card">
-                    <div class="upper-container"></div>
-                    <div class="card-body">
+                <div class="card recomm-card">
+                    <div class="card-body recomm-body">
                         {{remedies.name | safe }}
                     </div>
                     <div class="card-footer">
@@ -77,10 +82,10 @@
             </div>
             <hr>
             <div class = "row">
-                <form action="{{ url_for('users.rating') }}" method="post">
+                <!-- <form action="{{ url_for('users.rating') }}" method="post">
                     <input type="hidden" id = "rating_value" >
-                    <input type="submit" value="" >
-                </form>
+                    <input type="submit" value="" class = "btn btn-primary mr-auto">
+                </form> -->
             </div>
         </div>
     {% endif %}
