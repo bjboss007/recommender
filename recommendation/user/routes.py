@@ -1,7 +1,7 @@
 
 from flask import Blueprint, render_template, url_for, flash, redirect, request
 from flask_login import  current_user, login_user, logout_user, login_required
-from recommendation.models import User, Question, Remedy, Category
+from recommendation.models import User, Question, Remedy, Category, Rating
 from recommendation.user.forms import LoginForm, RegistrationForm
 from recommendation import db, bcrypt
 from recommendation.utils import parseData, get_rating, getKey
@@ -26,7 +26,7 @@ def login():
             #     return redirect(url_for('admin.usersListView'))
             # else:
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('users.account'))
+            return redirect(next_page) if next_page else redirect(url_for('users.question'))
         else:
             flash(f'Login Unsuccessful, Please check your email and password ','danger')
     return render_template("login.html", title = 'Login', form=form)
@@ -41,6 +41,7 @@ def register():
             email = form.email.data,
             username = form.username.data,
             password = form.password.data,
+            names = form.names.data,
             sex = form.sex.data,
             date_of_birth = form.date_of_birth.data
         )
@@ -63,7 +64,9 @@ def logout():
     logout_user()
     return redirect(url_for('users.login'))
 
+
 @users.route("/question", methods = ["GET","POST"])
+@login_required
 def question():
     import random
     questions = Question.query.all()
@@ -85,6 +88,7 @@ def question():
     
     
 @users.route("/users/<category>/recommendation")
+@login_required
 def recommendation(category):
     remedies_ = None 
     category = Category.query.filter_by(name = category).first()
@@ -101,8 +105,7 @@ def recommendation(category):
         key = getKey(maxi, maximum)
         remedy = Remedy.query.filter_by(title = key).first()
         remedies_ = remedy
-
-    return render_template('recommendation.html', title = "Recommendation page" , remedies = remedies_)
+    return render_template('recommendation.html', title = "Recommendation page" , remedies = remedies_, category = category)
 
 @users.route("/users/rating", methods = ["POST"])
 def rating():
@@ -110,12 +113,14 @@ def rating():
         data = list(request.form.items())
         print("This is the data: ")
         print(data)
-        # for remedy_id, rating in data:
-        #     remendy = Remedy.query.get(remedy_id).first()
-        #     rating = Rating(rating = rating)
-        #     remendy.remendy_rating.append(rating)
-        # db.session.commit()
-        # return redirect(url_for('users.account'))
+        for remedy_id, rating in data:
+            if rating == '':
+                continue
+            remendy = Remedy.query.get(int(remedy_id))
+            rating = Rating(rating = int(rating))
+            remendy.remedy_ratings.append(rating)
+        db.session.commit()
+        return redirect(url_for('users.account'))
     return redirect(url_for('users.account'))
         
     

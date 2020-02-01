@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique = True, nullable = False)
     password = db.Column(db.String(120), unique = True, nullable = False)
     image_file = db.Column(db.String(120))
-    sex = db.Column(db.String(10), unique = True, nullable = False)
+    sex = db.Column(db.String(10), unique = False, nullable = False)
     date_of_birth = db.Column(db.DateTime, nullable = False)
     
     def __init__(self, **kwargs):

@@ -10,29 +10,6 @@
     <link rel="stylesheet" href="">
 </head>
 <body>
-   <header>
-        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-            <div class="container">
-                <a href="#" class="navbar-brand mr-4"><img src="../static/images/iooon.jpg" alt="" style="width: 100px; width: 80px"></a>
-                <button class="navbar-toggler" type="button" data-toggle = "collapse" data-target = "#navbarToggle">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarToggle">
-                
-                    <div class="navbar-nav ml-auto">
-                        {% if current_user.is_authenticated %}
-                            <a href="{{url_for('users.account')}}" class="nav-item nav-link">Account</a>
-                            <a href="{{url_for('users.logout')}}" class="nav-item nav-link">Logout</a>
-                        {% else %}
-                            <a href="{{url_for('users.login')}}" class="nav-item nav-link">Login</a>
-                            <a href="{{url_for('users.register')}}" class="nav-item nav-link">Register</a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        </nav>
-   </header>
-
    <main>
         <div class="container-flu back">
             {% with messages = get_flashed_messages(with_categories=true) %}
