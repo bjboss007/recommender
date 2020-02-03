@@ -32,7 +32,7 @@
 .recomm-card{
     background: #ffffff;
     border-radius: 6px;
-    height: 500px;
+    height: 550px;
     box-shadow: 0px 1px 10px 1px #000;
 }
 .card-container{
@@ -69,10 +69,18 @@
     padding-top: 60px;
 }
 
-@media(max-width: 766px){
-    .parent > :first-child{
-        margin-bottom: 20px;
+.recom__banner{
+    height: 40px;
+    box-sizing: border-box ; 
+    border: 1px solid rgba(0, 0, 0, 0.123); 
+    padding: 2px; 
+    margin: 10px; 
+    text-align: center;
+}
 
+@media(max-width: 766px){
+    .recommcard__parent > :first-child{
+        margin-bottom: 20px;
     }
     .card.register__card{
         max-width: 500px;
@@ -94,18 +102,26 @@
 
     .card.register__card{
         max-width: 350px;
-        /* margin-top: 40vh  */
     }
     .cordinator{
         margin-top: 60px;
-        /* height: 80vh; */
         overflow-x: scroll;
     }
     
     .login-card{
         max-width: 350px;
     }
+    .recom__banner{
+        height: 100px;
+    }
+
+    .recommcard__parent > :first-child{
+        margin-bottom: 20px;
+    }
+
 }
+
+
 
 
 

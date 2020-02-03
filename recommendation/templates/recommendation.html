@@ -3,16 +3,16 @@
     <div class="container">
     {% if remedies is iterable %}
         <div class="content-section" style = "margin-top: 100px;">
-            <div style = "height:30px; border:1px solid black; padding: 10px">
+            <div class = "recom__banner">
                 <span style = "font-size: 18px;">
-                    Here is the recommendation to help you for your level of Depression - {{category}}
+                    Here is the recommendation to help you for your level of Depression - {{category.name}}
                 </span> 
             </div >
             <form action="{{ url_for('users.rating') }}" method="post" id="my-form">
-            <div class="row parent">
+            <div class="row recommcard__parent">
                 {% for remedy  in remedies %}
                     <div class="col-md-6 col-xs-6">
-                        <div _classCallCheck class="card recomm-card">
+                        <div class="card recomm-card">
                         <div class="card-body recomm-body">
                             {{remedy.name | safe }}
                              
