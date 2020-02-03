@@ -1,5 +1,5 @@
 
-from flask import Blueprint, render_template, url_for, flash, redirect, request
+from flask import Blueprint, render_template, url_for, flash, redirect, request,session
 from flask_login import  current_user, login_user, logout_user, login_required
 from recommendation.models import User, Question, Remedy, Category, Rating
 from recommendation.user.forms import LoginForm, RegistrationForm
@@ -22,6 +22,7 @@ def login():
         user = User.query.filter_by(email = form.email.data).first()
         if user and bcrypt.check_password_hash(user.password,form.password.data):
             login_user(user, remember = form.remember.data)
+
             # if (current_user.email == "admin@gmail.com" and current_user.username == "Admin"):
             #     return redirect(url_for('admin.usersListView'))
             # else:

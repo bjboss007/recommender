@@ -98,11 +98,12 @@
     }
 }
 
-@media(max-width:375px){
+@media screen and (max-width: 414px){
 
     .card.register__card{
         max-width: 350px;
     }
+
     .cordinator{
         margin-top: 60px;
         overflow-x: scroll;
