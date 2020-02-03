@@ -8,6 +8,9 @@
 .vscode/.ropeproject/config.py
 .vscode/.ropeproject/objectdb
 
+
 /recommendation/utils.py
 ./test.py
 /recommendation/user/remedies
+
+/recommendation/database.db
