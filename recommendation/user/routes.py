@@ -1,7 +1,7 @@
 
 from flask import Blueprint, render_template, url_for, flash, redirect, request,session
 from flask_login import  current_user, login_user, logout_user, login_required
-from recommendation.models import User, Question, Remedy, Category, Rating
+from recommendation.models import User, Question, Remedy, Category, Rating, Patient
 from recommendation.user.forms import LoginForm, RegistrationForm
 from recommendation import db, bcrypt
 from recommendation.utils import parseData, get_rating, getKey
@@ -38,14 +38,17 @@ def register():
     form  = RegistrationForm()
     if form.validate_on_submit():
         user = User(
-            email = form.email.data,
             username = form.username.data,
-            password = form.password.data,
+            password = form.password.data
+        )
+        patient = patien(
+            email = form.email.data,
             names = form.names.data,
             sex = form.sex.data,
             date_of_birth = form.date_of_birth.data
         )
-        db.session.add(user)
+        patient.user = user
+        db.session.add(patient)
         db.session.commit()
         flash(f'Your account has been created!','success')
         return redirect(url_for('users.login'))

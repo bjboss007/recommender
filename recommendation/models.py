@@ -12,26 +12,39 @@ def load_user(user_id):
 
 
 class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key = True)
+    username = db.Column(db.String(120), unique = True, nullable = False)
+    password = db.Column(db.String(120), unique = True, nullable = False)
+    patient_id = db.Column(db.Integer, db.ForeignKey('patient.id'))
+    physician_id = db.Column(db.Integer, db.ForeignKey('physician.id'))
+    
+    def __init__(self, **kwargs):
+        self.username = kwargs["username"]
+        self.username = kwargs["username"]
+        self.password = bcrypt.generate_password_hash(kwargs["password"]).decode('utf-8')
+    
+
+
+class Patient(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     names = db.Column(db.String(120), unique = True, nullable = False)
-    username = db.Column(db.String(120), unique = True, nullable = False)
     email = db.Column(db.String(120), unique = True, nullable = False)
-    password = db.Column(db.String(120), unique = True, nullable = False)
+    score = db.Column(db.Integer, nullable = True)
     image_file = db.Column(db.String(120))
     sex = db.Column(db.String(10), unique = False, nullable = False)
     date_of_birth = db.Column(db.DateTime, nullable = False)
+    user = db.relationship("User", uselist=False, backref="user")
+    crypto = db.relationship("Access", uselist=False, backref="user")
     
     def __init__(self, **kwargs):
         if kwargs["email"] is not None:
             self.image_file = hashlib.md5(kwargs["email"].encode('utf-8')).hexdigest()
-        self.username = kwargs["username"]
         self.email = kwargs["email"]
-        self.password = bcrypt.generate_password_hash(kwargs["password"]).decode('utf-8')
         self.date_of_birth = kwargs["date_of_birth"]
         self.sex = kwargs["sex"]
         self.names = kwargs["names"]
+        self.score = kwargs["score"]
         self.image_file = self.gravatar(self)
-        
         
         
     @staticmethod
@@ -58,10 +71,23 @@ class Category(db.Model):
     def __repr__(self):
         return f"Category = ['{self.name}']"
 
-remedy_ratings = db.Table( 'remedy_ratings',
-    db.Column('remedy_id', db.Integer, db.ForeignKey('remedy.id'), primary_key = True),
+physician_ratings = db.Table( 'remedy_ratings',
+    db.Column('remedy_id', db.Integer, db.ForeignKey('physician.id'), primary_key = True),
     db.Column('rating_id', db.Integer, db.ForeignKey('rating.id'), primary_key = True)
 )
+
+
+class Physician(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    names = db.Column(db.String(255), nullable = False)
+    user = db.relationship("User", uselist=False, backref="physician")
+    physician_ratings = db.relationship('Rating', secondary = physician_ratings, lazy = 'subquery',
+                                      backref = db.backref('physician', lazy = True))
+    crypto = db.relationship("Access", uselist=False, backref="physician")
+    
+    def __repr__(self):
+        return f"Physician = ['{self.names}']"
+    
     
 class Remedy(db.Model):
     id = db.Column(db.Integer, primary_key = True)
@@ -69,8 +95,8 @@ class Remedy(db.Model):
     name = db.Column(db.Text,unique = False, nullable = False)
     image_file = db.Column(db.String(120), nullable = True)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable = False)
-    remedy_ratings = db.relationship('Rating', secondary = remedy_ratings, lazy = 'subquery',
-                                      backref = db.backref('remedy', lazy = True))
+    # remedy_ratings = db.relationship('Rating', secondary = remedy_ratings, lazy = 'subquery',
+    #                                   backref = db.backref('remedy', lazy = True))
     
     
     def __repr__(self):
@@ -96,3 +122,11 @@ class Option(db.Model):
    
    def __repr__(self):
       return f"Option => ['{self.name}']"
+  
+  
+class Access(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    private_key = db.Column(db.LargeBinary)
+    public_key = db.Column(db.LargeBinary)
+    patient_id = db.Column(db.Integer, db.ForeignKey('patient.id'), nullable = False)
+    physician_id = db.Column(db.Integer, db.ForeignKey('physician.id'), nullable = False)
