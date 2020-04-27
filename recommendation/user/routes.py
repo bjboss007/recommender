@@ -1,36 +1,16 @@
 
 from flask import Blueprint, render_template, url_for, flash, redirect, request,session
 from flask_login import  current_user, login_user, logout_user, login_required
-from recommendation.models import User, Question, Remedy, Category, Rating, Patient
-from recommendation.user.forms import LoginForm, RegistrationForm
+
 from recommendation import db, bcrypt
 from recommendation.utils import parseData, get_rating, getKey
+from recommendation.models import User, Question, Remedy, Category, Rating, Patient, History, PatientRecom, Physician
+from recommendation.user.forms import LoginForm, RegistrationForm
 
 
 
 users = Blueprint('users', __name__)
 
-@users.route('/', methods = ["GET", "POST"])
-@users.route('/login', methods = ["GET", "POST"])
-def login():
-    form = LoginForm()
-    if current_user.is_authenticated:
-        flash(f'You are already logged in ','info')
-        return redirect(url_for('users.account'))
-    
-    if form.validate_on_submit():
-        user = User.query.filter_by(email = form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password,form.password.data):
-            login_user(user, remember = form.remember.data)
-
-            # if (current_user.email == "admin@gmail.com" and current_user.username == "Admin"):
-            #     return redirect(url_for('admin.usersListView'))
-            # else:
-            next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('users.question'))
-        else:
-            flash(f'Login Unsuccessful, Please check your email and password ','danger')
-    return render_template("login.html", title = 'Login', form=form)
 
 
 @users.route("/register", methods = ["GET", "POST"])
@@ -39,9 +19,11 @@ def register():
     if form.validate_on_submit():
         user = User(
             username = form.username.data,
-            password = form.password.data
+            email = form.email.data,
+            password = form.password.data,
+            user_type = "regular"
         )
-        patient = patien(
+        patient = Patient(
             email = form.email.data,
             names = form.names.data,
             sex = form.sex.data,
@@ -51,7 +33,7 @@ def register():
         db.session.add(patient)
         db.session.commit()
         flash(f'Your account has been created!','success')
-        return redirect(url_for('users.login'))
+        return redirect(url_for('main.login'))
     return render_template('register.html', form = form)
 
 
@@ -59,13 +41,12 @@ def register():
 @users.route("/users/account", methods = ["GET", "POST"])
 @login_required
 def account():
-    user = User.query.get_or_404(current_user.id)
-    return render_template("account.html", title = "Account page", user = user)
+    # user = User.query.get_or_404(current_user.id)
+    patient = Patient.query.get_or_404(current_user.patient_id)
+    print(patient)
+    status = patient.history.status
+    return render_template("account.html", title = "Account page", user = patient, status = status)
 
-@users.route("/logout", methods = ["GET"])
-def logout():
-    logout_user()
-    return redirect(url_for('users.login'))
 
 
 @users.route("/question", methods = ["GET","POST"])
@@ -86,7 +67,14 @@ def question():
                     if incoming[i] == question.answer:
                         count+=1      
         category = parseData(count)
-        return redirect(url_for('users.recommendation',category = category))
+        history = History()
+        patient = Patient.query.get_or_404(current_user.patient_id)
+        patient.score = count
+        history.patient_id = current_user.patient_id
+        db.session.add(history)
+        db.session.commit()
+        flash(f'You response has been submitted, check your dashboard after 2hours ','info')
+        return redirect(url_for('users.account'))
     return render_template('question.html', title = 'Question', questions = questions)
     
     
@@ -116,16 +104,27 @@ def rating():
         data = list(request.form.items())
         print("This is the data: ")
         print(data)
-        for remedy_id, rating in data:
+        for physician_id, rating in data:
             if rating == '':
                 continue
-            remendy = Remedy.query.get(int(remedy_id))
+            physician = Physician.query.get(int(physician_id))
             rating = Rating(rating = int(rating))
-            remendy.remedy_ratings.append(rating)
+            print(rating.rating)
+            physician.physician_ratings.append(rating)
         db.session.commit()
         return redirect(url_for('users.account'))
     return redirect(url_for('users.account'))
-        
+
+
+@users.route("/users/recommendation")
+def show_recommendation():
+    patient_recomm = PatientRecom.query.filter_by(patient_id = current_user.patient_id).first()
+    
+    physician = Physician.query.get_or_404(patient_recomm.physician_id)
+    category = Category.query.get_or_404(patient_recomm.category_id)
+    remedies = category.remedies
+    
+    return render_template("recommendation_.html", physician = physician, remedies = remedies, category = category)
     
     
     

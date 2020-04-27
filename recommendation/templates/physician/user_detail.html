@@ -1,0 +1,50 @@
+{% extends 'physician/layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row" style="margin-top:100px">
+            <div class="card w-75 " id="detail_card">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        {{patient.user.username}} - Details
+                    </h4>
+                </div>
+                <form action="" method= "POST">
+                    <input type="hidden" name="patient_id" value = {{patient.id}}>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <h4 style="font-style:monospace;">Name</h4>
+                                <h4>Score</h4>
+                            </div>
+                            <div class="col-6">
+                                <h4>{{patient.names}}</h4>
+                                <h4>{{patient.score}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div style = "padding-left:20px">
+                        <p>Choose a recommendation: </p>
+    
+                            <p>
+                                
+                                {% for category in category %}
+                            
+                                <p>
+                
+                                    <input type="radio" value = {{category.id}} class = "check" name = category required> <strong style="font-weight:400">{{category.name}}</strong><br>
+                                   
+                                </p>
+                        
+                                {% endfor %}
+                            </p>
+                    </div>
+                    <div class="card-footer" style="height:65px">
+                        <button type = "submit" class = "btn btn-primary"> Submit </button>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+{%endblock%}

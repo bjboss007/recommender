@@ -50,6 +50,11 @@
    
 }
 
+#detail_card{
+    top:63% !important;
+    right: -14%;
+}
+
 .account{
     background-image: linear-gradient(to right, rgba(28, 9, 75, 0.5), #94badb4f),url('./images/account_page.jpg');
     height:96.8vh;
@@ -121,9 +126,6 @@
     }
 
 }
-
-
-
 
 
 .upper-container{

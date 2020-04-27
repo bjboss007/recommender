@@ -9,7 +9,6 @@
 .vscode/.ropeproject/objectdb
 
 
-/recommendation/utils.py
 ./test.py
 /recommendation/user/remedies
 

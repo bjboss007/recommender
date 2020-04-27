@@ -1,14 +1,13 @@
-{% extends 'layout.html' %}
+{% extends 'physician/layout.html' %}
 
 {% block content %}
-    <div class="cordinator">
-        <div class="card register__card" style = "width: 700px;
-        justify-content: content; ">
+    <div class="cordinator" style = "margin-top: 135px; transform: translate(27%,0%)">
+        <div class="card register__card" style = "width: 700px; justify-content: content; ">
             <div class="card-body " >
                 <form method="POST" action="" role="form">
                     {{ form.hidden_tag() }}
                     <fieldset class = "form-group">
-                        <legend class="border-bottom md-4">Register</legend>
+                        <legend class="border-bottom md-4">Add Physician</legend>
                         <div class="form-group">
                             {{form.names.label(class = "form-control-label")}}
                             {% if form.names.errors %}
@@ -56,40 +55,6 @@
                                 </div>
                             <!-- </div>
                         </div> -->
-                       
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    {{form.sex.label(class = "form-control-label")}}
-                                        {% if form.sex.errors %}
-                                            {{form.sex(class = "form-control is-invalid")}}
-                                            <div class="invalid-feedback">
-                                                {% for e in form.sex.errors %}
-                                                    <span>{{e}}</span>
-                                                {% endfor %}
-                                            </div>
-                                    {% else %}
-                                        {{form.sex(class = "form-control ")}}  
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    {{form.date_of_birth.label(class = "form-control-label")}}
-                                        {% if form.date_of_birth.errors %}
-                                            {{form.date_of_birth(class = "form-control is-invalid")}}
-                                            <div class="invalid-feedback">
-                                                {% for e in form.date_of_birth.errors %}
-                                                    <span>{{e}}</span>
-                                                {% endfor %}
-                                            </div>
-                                    {% else %}
-                                        {{form.date_of_birth(class = "form-control ")}}  
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-        
                         <div class = "row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -131,11 +96,7 @@
                         {{form.submit(class = "btn btn-outline-info ml-auto")}}
                     </div>
                 </form>
-                <div class="border-top pt-3">
-                    <small class="text-muted">
-                        Already Have an account? <a href="{{ url_for('main.login') }}" class="ml-2">Sign In </a>
-                    </small>
-                </div>
+    
             </div>
         <!-- </div> -->
     </div>

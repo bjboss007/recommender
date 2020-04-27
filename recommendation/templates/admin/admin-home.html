@@ -1,0 +1,58 @@
+{% extends 'physician/layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row" style="margin-top: 135px;">
+            <div class="card w-100">
+                <div class="card-header">
+                    <h4 class="card-text">Physician List</h4>
+                </div>
+                <div class="card-body">
+                    <div class = "text-right">
+                        <a href="{{url_for('admin.add_physician')}}" class = "btn btn-primary">Add</a>
+                    </div>
+                    <table class = "table table-condensed table-striped mt-5" >
+                        <thead>
+                            <th>#ID</th>
+                            <th>Names</th>
+                            <th>Username</th>
+                            <th>Rating</th>
+                        </thead>
+                        <tbody>
+                            {% if physicians | length != 0 %}
+                                {%for physician in physicians %}
+                                    <tr>
+                                        <td>{{loop.index}}</td>
+                                        <td>{{physician.names}}</td>
+                                        <td>{{physician.user.username}}</td>
+                                        {% set rating = [] %}
+                                        {% set count = physician.physician_ratings | length  %}
+                                        {% for r in physician.physician_ratings %}
+                                            {% if rating.append(r.rating) %}{% endif %}
+                                        {% endfor %}
+                                        {% if physician.physician_ratings | length == 0 %}
+                                            <td>{{count }}</td> 
+                                        {% else %}
+                                            <td>{{ rating|sum / count }}</td> 
+                                        {% endif %}
+                                          
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+        
+                                <tr class = "text-center">
+                                    <td></td>
+                                    <td ></td>
+                                    <td> No record (s) available</td>
+                                    <td></td>
+                                </tr>
+                            
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock content %}

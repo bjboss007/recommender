@@ -7,7 +7,7 @@
    
     <link rel="stylesheet" href="{{url_for('static', filename = 'css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename = 'font-awesome/css/font-awesome.min.css')}}">
-    link rel="stylesheet" href="{{url_for('static', filename = 'font-awesome/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'font-awesome/css/all.min.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename = 'main.css')}}">
     <title>Depression Recommendation</title>
     <link rel="stylesheet" href="">
@@ -24,16 +24,8 @@
                 
                     <div class="navbar-nav ml-auto">
                         {% if current_user.is_authenticated %}
-                            <a href="{{url_for('users.account')}}" class="nav-item nav-link">Account</a>
                             <a href="{{url_for('main.logout')}}" class="nav-item nav-link ">Logout</a>
-
-                            {% if status %}
-                                <a href="{{url_for('users.show_recommendation')}}" class="nav-item nav-link ">Notification <span class="badge badge-light"><i class="fa fa-bell"></i></span></a>
-                            {% endif %}
-                        {% else %}
-                            <a href="{{url_for('main.login')}}" class="nav-item nav-link ">Login</a>
-                            <a href="{{url_for('users.register')}}" class="nav-item nav-link ">Register</a>
-                        {% endif %}
+                        {% endif%}
                     </div>
                 </div>
             </div>

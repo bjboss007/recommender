@@ -1,0 +1,36 @@
+{% extends 'physician/layout.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row mt-5" style="margin-top: 20px;">
+            <table class = "table table-condensed table-striped mt-5" >
+                <thead>
+                    <th>#ID</th>
+                    <th>Username</th>
+                    <th>Action</th>
+                </thead>
+                <tbody>
+                    {% if histories | length != 0 %}
+                        {%for patient in histories %}
+                            <tr>
+                                <td>{{loop.index}}</td>
+                                <td>{{patient.user.username}}</td>
+                                <td><a href="{{url_for('physician.show_user_details', id = patient.id)}}" class = "btn btn-primary">View User</a></td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+
+                        <tr class = "text-center" >
+                            <td></td>
+                            <td >No record (s) available</td>
+                            <td></td>
+                        </tr>
+                    
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+{% endblock content %}

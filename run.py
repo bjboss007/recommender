@@ -1,6 +1,6 @@
 from recommendation import create_app
 from recommendation.models import Question
-from recommendation.starter import starter
+from starter import starter
 
 app = create_app()
 

@@ -116,6 +116,15 @@ def starter():
     mild.remedies = [r_mild1, r_mild2]
     moderate.remedies = [r_mod1, r_mod2]
     severe.remedies = [r_sev, r_sev2]
-
-    db.session.add_all([normal, mild, moderate, severe])
+    
+    user = User(
+        username = "Admin User",
+        email = "admin@admin.com",
+        password = "password",
+        user_type = "admin"
+    )
+    
+    db.session.add_all([normal, mild, moderate, severe, user])
     db.session.commit()
+    
+    

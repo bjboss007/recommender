@@ -9,49 +9,49 @@
                 </span> 
             </div >
             <form action="{{ url_for('users.rating') }}" method="post" id="my-form">
-            <div class="row recommcard__parent">
-                {% for remedy  in remedies %}
-                    <div class="col-md-6 col-xs-6">
-                        <div class="card recomm-card">
-                        <div class="card-body recomm-body">
-                            {{remedy.name | safe }}
-                             
-                            {% if remedy.image_file %}
-                                <a href="{{ remedy.image_file }}"> click here to see exercise ...</a>
-                            {% endif %}
-                        </div>
-                        <div class="card-footer">
-                            <div class='rating-stars text-center'>
-                                <ul id='stars' class='stars'>
-                                    <li class='star' title='Poor' data-value='1'>
-                                        <i class='fa fa-star fa-fw'></i>
-                                    </li>
-                                    <li class='star' title='Fair' data-value='2'>
-                                        <i class='fa fa-star fa-fw'></i>
-                                    </li>
-                                    <li class='star' title='Good' data-value='3'>
-                                        <i class='fa fa-star fa-fw'></i>
-                                    </li>
-                                    <li class='star' title='Excellent' data-value='4'>
-                                        <i class='fa fa-star fa-fw'></i>
-                                    </li>
-                                    <li class='star' title='WOW!!!' data-value='5'>
-                                        <i class='fa fa-star fa-fw'></i>
-                                    </li>
-                                </ul>
-                                <input type="hidden" name = {{remedy.id}} id = "rating_value_{{loop.index}}"  >
+                <div class="row recommcard__parent">
+                    {% for remedy  in remedies %}
+                        <div class="col-md-6 col-xs-6">
+                            <div class="card recomm-card">
+                            <div class="card-body recomm-body">
+                                {{remedy.name | safe }}
+                                
+                                {% if remedy.image_file %}
+                                    <a href="{{ remedy.image_file }}"> click here to see exercise ...</a>
+                                {% endif %}
                             </div>
-                        </div>
-                        </div>
-                        </div>
-                {% endfor %}
-            </div>
-            <hr>
-            <div class = "row">
-                <input type="submit" value="Submit" class = "btn btn-primary ml-auto" style="margin-right:15px; width:200px" >
+                            <div class="card-footer">
+                                <div class='rating-stars text-center'>
+                                    <ul id='stars' class='stars'>
+                                        <li class='star' title='Poor' data-value='1'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Fair' data-value='2'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Good' data-value='3'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='Excellent' data-value='4'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                        <li class='star' title='WOW!!!' data-value='5'>
+                                            <i class='fa fa-star fa-fw'></i>
+                                        </li>
+                                    </ul>
+                                    <input type="hidden" name = {{remedy.id}} id = "rating_value_{{loop.index}}"  >
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                    {% endfor %}
+                </div>
+                <hr>
+                <div class = "row">
+                    <input type="submit" value="Submit" class = "btn btn-primary ml-auto" style="margin-right:15px; width:200px" >
 
-            </div>
-        </form>
+                </div>
+            </form>
         </div>
     {% else %}
     
